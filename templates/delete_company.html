@@ -1,0 +1,7 @@
+<form method="POST" action="/delete_company/">
+    {% csrf_token %}
+    <label for="company_id">Company ID:</label>
+    <input type="text" id="company_id" name="company_id" required>
+    <br>
+    <button type="submit">Delete Company</button>
+</form>

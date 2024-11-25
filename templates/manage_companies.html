@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Companies</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        .actions {
+            display: flex;
+            gap: 8px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Manage Companies</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Details</th>
+                <th>Owner</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for company in pending_companies %}
+            <tr>
+                <td>{{ company.id }}</td>
+                <td>{{ company.name }}</td>
+                <td>{{ company.email }}</td>
+                <td>{{ company.details }}</td>
+                <td>{{ company.owner }}</td>
+                <td>
+                    <form method="post" action="{% url 'manage_companies' %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="company_id" value="{{ company.id }}">
+                        <button type="submit" name="action" value="approve">Approve</button>
+                        <button type="submit" name="action" value="reject">Reject</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
